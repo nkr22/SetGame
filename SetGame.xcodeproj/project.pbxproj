@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8101F6452AD87D8F00D06F89 /* Squiggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6442AD87D8F00D06F89 /* Squiggle.swift */; };
+		8101F6472AD87E1000D06F89 /* SetGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6462AD87E1000D06F89 /* SetGameModel.swift */; };
+		8101F6492AD87FA300D06F89 /* SetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6482AD87FA300D06F89 /* SetGameViewModel.swift */; };
+		8101F64B2AD887C300D06F89 /* Diamond.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F64A2AD887C300D06F89 /* Diamond.swift */; };
+		8101F64D2AD887CE00D06F89 /* Oval.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F64C2AD887CE00D06F89 /* Oval.swift */; };
+		8101F64F2AD8E15D00D06F89 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F64E2AD8E15D00D06F89 /* Cardify.swift */; };
+		8101F6512AD8EF4D00D06F89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6502AD8EF4D00D06F89 /* CardView.swift */; };
+		8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6522AD8F08700D06F89 /* SymbolView.swift */; };
 		81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */; };
 		81225A702AD2216B00CD0F15 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6F2AD2216B00CD0F15 /* ContentView.swift */; };
 		81225A722AD2216D00CD0F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81225A712AD2216D00CD0F15 /* Assets.xcassets */; };
@@ -34,6 +42,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8101F6442AD87D8F00D06F89 /* Squiggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squiggle.swift; sourceTree = "<group>"; };
+		8101F6462AD87E1000D06F89 /* SetGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameModel.swift; sourceTree = "<group>"; };
+		8101F6482AD87FA300D06F89 /* SetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameViewModel.swift; sourceTree = "<group>"; };
+		8101F64A2AD887C300D06F89 /* Diamond.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Diamond.swift; sourceTree = "<group>"; };
+		8101F64C2AD887CE00D06F89 /* Oval.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Oval.swift; sourceTree = "<group>"; };
+		8101F64E2AD8E15D00D06F89 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
+		8101F6502AD8EF4D00D06F89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		8101F6522AD8F08700D06F89 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		81225A6A2AD2216B00CD0F15 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
 		81225A6F2AD2216B00CD0F15 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +88,50 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8101F63F2AD87D5000D06F89 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8101F6432AD87D8000D06F89 /* Shapes */,
+				8101F64E2AD8E15D00D06F89 /* Cardify.swift */,
+				8101F6502AD8EF4D00D06F89 /* CardView.swift */,
+				8101F6522AD8F08700D06F89 /* SymbolView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		8101F6402AD87D5600D06F89 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				8101F6482AD87FA300D06F89 /* SetGameViewModel.swift */,
+			);
+			name = ViewModel;
+			sourceTree = "<group>";
+		};
+		8101F6412AD87D6300D06F89 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8101F6462AD87E1000D06F89 /* SetGameModel.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		8101F6422AD87D7000D06F89 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Utility;
+			sourceTree = "<group>";
+		};
+		8101F6432AD87D8000D06F89 /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				8101F6442AD87D8F00D06F89 /* Squiggle.swift */,
+				8101F64A2AD887C300D06F89 /* Diamond.swift */,
+				8101F64C2AD887CE00D06F89 /* Oval.swift */,
+			);
+			name = Shapes;
+			sourceTree = "<group>";
+		};
 		81225A612AD2216B00CD0F15 = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +155,10 @@
 		81225A6C2AD2216B00CD0F15 /* SetGame */ = {
 			isa = PBXGroup;
 			children = (
+				8101F6422AD87D7000D06F89 /* Utility */,
+				8101F6412AD87D6300D06F89 /* Model */,
+				8101F6402AD87D5600D06F89 /* ViewModel */,
+				8101F63F2AD87D5000D06F89 /* View */,
 				81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */,
 				81225A6F2AD2216B00CD0F15 /* ContentView.swift */,
 				81225A712AD2216D00CD0F15 /* Assets.xcassets */,
@@ -259,8 +323,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8101F64B2AD887C300D06F89 /* Diamond.swift in Sources */,
+				8101F6512AD8EF4D00D06F89 /* CardView.swift in Sources */,
+				8101F6472AD87E1000D06F89 /* SetGameModel.swift in Sources */,
+				8101F64F2AD8E15D00D06F89 /* Cardify.swift in Sources */,
+				8101F6452AD87D8F00D06F89 /* Squiggle.swift in Sources */,
+				8101F64D2AD887CE00D06F89 /* Oval.swift in Sources */,
+				8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */,
 				81225A702AD2216B00CD0F15 /* ContentView.swift in Sources */,
 				81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */,
+				8101F6492AD87FA300D06F89 /* SetGameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
