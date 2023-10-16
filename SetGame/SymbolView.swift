@@ -31,13 +31,24 @@ struct SymbolView: View {
         }
     }
     
+    var shading: Color {
+        switch card.shading {
+            case .solid:
+                 return color
+            case .shaded:
+                 return color.opacity(0.25)
+            default:
+                 return Color.clear
+        }
+    }
+    
     var body: some View {
         
             HStack {
                 ForEach(0..<card.number.rawValue, id: \.self) { _ in
                     ZStack {
                         symbol
-                            .foregroundStyle(shadingToUse())
+                            .foregroundStyle(shading)
                         symbol.stroke(lineWidth: 8)
                             .foregroundStyle(color)
                     }
@@ -51,17 +62,7 @@ struct SymbolView: View {
         
         .padding()
     }
-    
-    private func shadingToUse() -> Color {
-           switch card.shading {
-               case .solid:
-                    return color
-               case .shaded:
-                    return color.opacity(0.25)
-               default:
-                    return Color.clear
-           }
-       }
+
 }
 
 #Preview {
