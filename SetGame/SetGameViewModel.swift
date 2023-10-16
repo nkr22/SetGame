@@ -63,6 +63,11 @@ import SwiftUI
         }
     }
     
+    func newGame () {
+        game = SetGameModel()
+        dealInitialCards()
+    }
+    
     func selectCard(_ card: SetGameModel.Card) {
         withAnimation(.easeIn(duration: Constants.animationDuration)){
             game.selectCard(card)

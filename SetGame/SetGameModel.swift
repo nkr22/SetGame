@@ -65,6 +65,19 @@ struct SetGameModel {
             }
         }
     }
+    
+    mutating func isSetMatch(cards: [Card]) -> Bool {
+        let colors = Set(cards.map { $0.color })
+        let symbols = Set(cards.map { $0.symbol })
+        let shadings = Set(cards.map { $0.shading })
+        let numbers = Set(cards.map { $0.number })
+
+        return (colors.count == 1 || colors.count == 3) &&
+               (symbols.count == 1 || symbols.count == 3) &&
+               (shadings.count == 1 || shadings.count == 3) &&
+               (numbers.count == 1 || numbers.count == 3)
+    }
+
  
     
     //dealing the first twelve

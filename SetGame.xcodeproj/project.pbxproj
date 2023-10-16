@@ -16,7 +16,7 @@
 		8101F6512AD8EF4D00D06F89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6502AD8EF4D00D06F89 /* CardView.swift */; };
 		8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6522AD8F08700D06F89 /* SymbolView.swift */; };
 		81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */; };
-		81225A702AD2216B00CD0F15 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6F2AD2216B00CD0F15 /* ContentView.swift */; };
+		81225A702AD2216B00CD0F15 /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6F2AD2216B00CD0F15 /* SetGameView.swift */; };
 		81225A722AD2216D00CD0F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81225A712AD2216D00CD0F15 /* Assets.xcassets */; };
 		81225A762AD2216D00CD0F15 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81225A752AD2216D00CD0F15 /* Preview Assets.xcassets */; };
 		81225A802AD2216D00CD0F15 /* SetGameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A7F2AD2216D00CD0F15 /* SetGameTests.swift */; };
@@ -52,7 +52,7 @@
 		8101F6522AD8F08700D06F89 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
 		81225A6A2AD2216B00CD0F15 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
-		81225A6F2AD2216B00CD0F15 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		81225A6F2AD2216B00CD0F15 /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
 		81225A712AD2216D00CD0F15 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81225A732AD2216D00CD0F15 /* SetGame.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SetGame.entitlements; sourceTree = "<group>"; };
 		81225A752AD2216D00CD0F15 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -160,7 +160,7 @@
 				8101F6402AD87D5600D06F89 /* ViewModel */,
 				8101F63F2AD87D5000D06F89 /* View */,
 				81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */,
-				81225A6F2AD2216B00CD0F15 /* ContentView.swift */,
+				81225A6F2AD2216B00CD0F15 /* SetGameView.swift */,
 				81225A712AD2216D00CD0F15 /* Assets.xcassets */,
 				81225A732AD2216D00CD0F15 /* SetGame.entitlements */,
 				81225A742AD2216D00CD0F15 /* Preview Content */,
@@ -330,7 +330,7 @@
 				8101F6452AD87D8F00D06F89 /* Squiggle.swift in Sources */,
 				8101F64D2AD887CE00D06F89 /* Oval.swift in Sources */,
 				8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */,
-				81225A702AD2216B00CD0F15 /* ContentView.swift in Sources */,
+				81225A702AD2216B00CD0F15 /* SetGameView.swift in Sources */,
 				81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */,
 				8101F6492AD87FA300D06F89 /* SetGameViewModel.swift in Sources */,
 			);

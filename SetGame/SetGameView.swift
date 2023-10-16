@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct SetGameView: View {
     let setGame: SetGameViewModel
     var body: some View {
         
@@ -27,6 +27,12 @@ struct ContentView: View {
                     Spacer()
                     HStack {
                         Button {
+                            setGame.newGame()
+                        } label: {
+                            Text("New Game")
+                        }
+                        Spacer()
+                        Button {
                             setGame.dealThreeMoreCards()
                         } label: {
                             Text("Deal 3 More Cards")
@@ -42,7 +48,7 @@ struct ContentView: View {
         }
     }
     private struct Game {
-        static let desiredCardWidth = 125.0
+        static let desiredCardWidth = 80.0
     }
     
     private func columns(for size: CGSize) -> [GridItem] {
@@ -53,7 +59,7 @@ struct ContentView: View {
 
 
 #Preview {
-    ContentView(setGame: SetGameViewModel())
+    SetGameView(setGame: SetGameViewModel())
 }
         
 
