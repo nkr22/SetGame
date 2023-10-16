@@ -32,6 +32,7 @@ struct SetGameModel {
     //setting up the 81 cards possible (3^4)
     
     init() {
+        var count = 1
         var cards = [Card]()
         
         for color in CardColor.allCases {
@@ -40,19 +41,29 @@ struct SetGameModel {
                     for number in CardNumber.allCases {
                         cards.append(
                             Card(
-                                id: UUID(),
+                                id: count,
                                 color: color,
                                 symbol: symbol,
                                 number: number,
                                 shading: shading
                             )
                         )
+                        
+                        count += 1
                     }
                 }
             }
         }
         //shuffling the cards
         self.cards = cards.shuffled()
+    }
+    
+    mutating func selectCard(_ card: Card) {
+        for index in cards.indices {
+            if cards[index].id == card.id {
+                cards[index].isSelected.toggle()
+            }
+        }
     }
  
     
@@ -65,7 +76,7 @@ struct SetGameModel {
         //score based on how many cards are currently out
     
     struct Card: Identifiable {
-        let id: UUID
+        let id: Int
         let color: CardColor
         let symbol: CardSymbol
         let number: CardNumber
@@ -73,5 +84,6 @@ struct SetGameModel {
         
         var isMatched = false
         var isSelected = false
+        var isOnScreen = false
     }
 }

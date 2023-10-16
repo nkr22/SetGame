@@ -23,16 +23,19 @@ struct Cardify: Animatable, ViewModifier {
     }
     
     func body(content: Content) -> some View {
-        
-        GeometryReader {geometry in
-            ZStack{
-                RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).stroke()
-                content
+            GeometryReader{geometry in
+                ZStack{
+                    RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).stroke()
+                        .background(isSelected ? .yellow.opacity(0.25) : .white)
+                    content
+                        .padding()
+                }
+                .padding(geometry.size.width * Card.paddingScaleFactor)
             }
-            .padding(geometry.size.width * Card.paddingScaleFactor)
+            
             .aspectRatio(Card.aspectRatio, contentMode: .fit)
-        }
-        .scaleEffect(isSelected ? 1.1 : 1.0)
+            .scaleEffect(isSelected ? 1.1 : 1.0)
+            
     }
     
     // MARK: - Drawing Constants

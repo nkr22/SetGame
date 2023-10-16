@@ -30,22 +30,23 @@ struct SymbolView: View {
                 return AnyShape(Oval())
         }
     }
-    var size: CGSize
     
     var body: some View {
-        HStack {
-            ForEach(0..<card.number.rawValue) { card in
-                ZStack {
-                    symbol
-                        .foregroundStyle(shadingToUse())
-                    symbol.stroke(lineWidth: 8)
-                        .foregroundStyle(color)
+        
+            HStack {
+                ForEach(0..<card.number.rawValue, id: \.self) { _ in
+                    ZStack {
+                        symbol
+                            .foregroundStyle(shadingToUse())
+                        symbol.stroke(lineWidth: 8)
+                            .foregroundStyle(color)
+                    }
+                    .aspectRatio(1/2, contentMode: .fit)
+                
                 }
-                .padding()
-                .aspectRatio(1/2, contentMode: .fit)
+            
             }
             .rotationEffect(Angle(degrees: 180))
-        }
         .rotationEffect(Angle(degrees: 90))
         
         .padding()
@@ -64,5 +65,5 @@ struct SymbolView: View {
 }
 
 #Preview {
-    SymbolView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .two, shading: .shaded), size: CGSize(width: 200, height: 200))
+    SymbolView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .three, shading: .shaded))
 }

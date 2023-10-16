@@ -10,15 +10,14 @@ import SwiftUI
 struct CardView: View {
     let card: SetGameModel.Card
     var body: some View {
-        GeometryReader { geometry in
-            SymbolView(card: card, size: geometry.size)
-                .cardify(
-                    isSelected: card.isSelected
-                )
+        ZStack{
+            SymbolView(card: card)
         }
+        .cardify(isSelected: card.isSelected)
+        
     }
 }
 
 #Preview {
-    CardView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .two, shading: .shaded))
+    CardView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .three, shading: .shaded))
 }

@@ -13,17 +13,32 @@ struct ContentView: View {
     var body: some View {
         
         GeometryReader { geometry in
-            VStack {
-                LazyVGrid(columns: columns(for: geometry.size)) {
-                    ForEach(setGame.dealtCards) { card in
-                        CardView(card: card)
+            ScrollView{
+                VStack {
+                    LazyVGrid(columns: columns(for: geometry.size)) {
+                        ForEach(setGame.dealtCards) { card in
+                            CardView(card: card)
+                                .onTapGesture {
+                                    setGame.selectCard(card)
+                                }
+                                
+                        }
+                    }
+                    Spacer()
+                    HStack {
+                        Button {
+                            setGame.dealThreeMoreCards()
+                        } label: {
+                            Text("Deal 3 More Cards")
+                        }
+                        .foregroundStyle(setGame.dealingIsDisabled ? .gray : .blue)
                     }
                 }
+                .padding()
             }
-            .padding()
         }
         .onAppear {
-            setGame.dealCards()
+            setGame.dealInitialCards()
         }
     }
     private struct Game {
