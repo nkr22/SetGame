@@ -26,9 +26,9 @@ struct Cardify: Animatable, ViewModifier {
             GeometryReader{geometry in
                 ZStack{
                     RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).stroke()
-                        .background(isSelected ? .yellow.opacity(0.25) : .white)
+                        .background(isSelected ? .yellow : .white)
                     content
-                        .padding()
+                        
                 }
                 .padding(geometry.size.width * Card.paddingScaleFactor)
             }
@@ -44,8 +44,7 @@ struct Cardify: Animatable, ViewModifier {
     }
     
     private struct Card {
-        static let aspectRatio: Double = 5.0/7.0
-        static let fontScaleFactor = 0.75
+        static let aspectRatio: Double = 2.0/3.0
         static let paddingScaleFactor = 0.04
     }
     

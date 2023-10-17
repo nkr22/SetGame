@@ -13,15 +13,16 @@ struct SetGameView: View {
     var body: some View {
         
         GeometryReader { geometry in
-            ScrollView{
                 VStack {
-                    LazyVGrid(columns: columns(for: geometry.size)) {
-                        ForEach(setGame.dealtCards) { card in
-                            CardView(card: card)
-                                .onTapGesture {
-                                    setGame.selectCard(card)
-                                }
+                    ScrollView{
+                        LazyVGrid(columns: columns(for: geometry.size)) {
+                            ForEach(setGame.dealtCards) { card in
+                                CardView(card: card)
+                                    .onTapGesture {
+                                        setGame.selectCard(card)
+                                    }
                                 
+                            }
                         }
                     }
                     Spacer()
@@ -41,7 +42,7 @@ struct SetGameView: View {
                     }
                 }
                 .padding()
-            }
+            
         }
         .onAppear {
             setGame.dealInitialCards()

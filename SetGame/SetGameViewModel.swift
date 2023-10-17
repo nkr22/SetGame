@@ -64,7 +64,7 @@ import SwiftUI
     }
     
     func newGame () {
-        game = SetGameModel()
+        game = SetGameViewModel.createGame()
         dealInitialCards()
     }
     

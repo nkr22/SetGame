@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SymbolView: View {
     let card: SetGameModel.Card
+    var size: CGSize
     var color: Color {
         switch card.color {
             case .red:
@@ -43,28 +44,30 @@ struct SymbolView: View {
     }
     
     var body: some View {
-        
             HStack {
                 ForEach(0..<card.number.rawValue, id: \.self) { _ in
                     ZStack {
-                        symbol
-                            .foregroundStyle(shading)
-                        symbol.stroke(lineWidth: 8)
-                            .foregroundStyle(color)
+                        Group{
+                            symbol
+                                .foregroundStyle(shading)
+                            symbol.stroke(lineWidth: 3)
+                                .foregroundStyle(color)
+                        }
                     }
                     .aspectRatio(1/2, contentMode: .fit)
+                    
+                    
                 
                 }
             
             }
+            .frame(height: size.width / 2)
             .rotationEffect(Angle(degrees: 180))
-        .rotationEffect(Angle(degrees: 90))
-        
-        .padding()
+            .rotationEffect(Angle(degrees: 90))
     }
 
 }
 
 #Preview {
-    SymbolView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .three, shading: .shaded))
+    SymbolView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .one, shading: .shaded), size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 }
