@@ -76,13 +76,7 @@ struct SetGameModel {
     
     mutating func selectCard(_ card: Card) {
         if let selectedCard = dealtCards.firstIndex(where: {$0.id == card.id}) {
-            if dealtCards[selectedCard].isSelected {
-                if dealtCards[selectedCard].isMatched {
-                    resetSelection()
-                } else {
-                    dealtCards[selectedCard].isSelected = false
-                }
-            } else {
+            if !dealtCards[selectedCard].isSelected {
                 switch selectedCardsIndices.count {
                 case 0...1:
                     dealtCards[selectedCard].isSelected = true
@@ -94,10 +88,10 @@ struct SetGameModel {
                         dealtCards[selectedCard].isMatched = true
                         for index in selectedCardsIndices {
                             dealtCards[index].isMatched = true
-                            dealtCards[index].isOnScreen = false
                         }
+                        dealtCards[selectedCard].isSelected = true
                         dealtCards[selectedCard].isMatched = true
-                        dealtCards[selectedCard].isOnScreen = false
+                        
                         print("Cards that are matched: \(dealtCards.filter { $0.isMatched })")
                         let selectedCards = selectedCardsIndices.map { dealtCards[$0] }
                         score += getScore(cards: selectedCards)
@@ -105,8 +99,8 @@ struct SetGameModel {
                         for index in selectedCardsIndices {
                             dealtCards[index].isMatched = false
                         }
-                        resetSelection()
                         dealtCards[selectedCard].isSelected = true
+                        dealtCards[selectedCard].isMatched = false
                     }
                 case 3:
                     print("3")
@@ -116,9 +110,74 @@ struct SetGameModel {
                     print("else")
                     return
                 }
+            } else if dealtCards[selectedCard].isSelected == true && dealtCards[selectedCard].isMatched == false {
+                dealtCards[selectedCard].isSelected = false
+            } else {
+                switch selectedCardsIndices.count {
+                case 1,2:
+                    dealtCards[selectedCard].isSelected = false
+                default:
+                    return
+                }
             }
+        } else {
+            return
         }
     }
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+//            if dealtCards[selectedCard].isSelected {
+//                if dealtCards[selectedCard].isMatched {
+//                    resetSelection()
+//                } else {
+//                    dealtCards[selectedCard].isSelected = false
+//                }
+//            } else {
+//                switch selectedCardsIndices.count {
+//                case 0...1:
+//                    dealtCards[selectedCard].isSelected = true
+//                    print("0 or 1")
+//                case 2:
+//                    print("2")
+//                    if cardsAreASet(index: selectedCard) {
+//                        print("It is a set!")
+//                        dealtCards[selectedCard].isMatched = true
+//                        for index in selectedCardsIndices {
+//                            dealtCards[index].isMatched = true
+//                        }
+//                        dealtCards[selectedCard].isSelected = true
+//                        dealtCards[selectedCard].isMatched = true
+//                        
+//                        print("Cards that are matched: \(dealtCards.filter { $0.isMatched })")
+//                        let selectedCards = selectedCardsIndices.map { dealtCards[$0] }
+//                        score += getScore(cards: selectedCards)
+//                    } else {
+//                        for index in selectedCardsIndices {
+//                            dealtCards[index].isMatched = false
+//                        }
+//                        dealtCards[selectedCard].isSelected = true
+//                        dealtCards[selectedCard].isMatched = false
+//                    }
+//                case 3:
+//                    print("3")
+//                    resetSelection()
+//                    dealtCards[selectedCard].isSelected = true
+//                default:
+//                    print("else")
+//                    return
+//                }
+//            }
+//        } 
+//    }
 
     
     mutating func cardsAreASet(index: Int) -> Bool{

@@ -18,6 +18,7 @@ struct SetGameView: View {
                         .font(.largeTitle)
                         .bold()
 
+                    
                     ScrollView{
                         LazyVGrid(columns: columns(for: geometry.size)) {
                             ForEach(setGame.dealtCards) { card in
@@ -29,6 +30,7 @@ struct SetGameView: View {
                             }
                         }
                     }
+                    
                     Spacer()
                     HStack {
                         Button {

@@ -43,13 +43,14 @@ struct Cardify: Animatable, ViewModifier {
                         }
                     content
                         .animation(.spring().repeatForever(), value: isMatched == true)
+                        .scaleEffect(isSelected && isMatched == true ? 1.1 : 1.0)
                         
                 }
                 .padding(geometry.size.width * Card.paddingScaleFactor)
             }
             
             .aspectRatio(Card.aspectRatio, contentMode: .fit)
-            .scaleEffect(isSelected && isMatched == false ? 1.1 : 1.0)
+            
             
     }
     
