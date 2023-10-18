@@ -9,7 +9,7 @@ import SwiftUI
 
 struct Cardify: Animatable, ViewModifier {
     var isSelected: Bool
-    var isMatched: Bool
+    var isMatched: Bool?
         
     var animatableData: Double {
         get { isSelected ? 1.1 : 1.0 }
@@ -18,7 +18,7 @@ struct Cardify: Animatable, ViewModifier {
     
     private var scale: Double
 
-    init(isSelected: Bool, isMatched: Bool) {
+    init(isSelected: Bool, isMatched: Bool?) {
         self.isSelected = isSelected
         self.isMatched = isMatched
         self.scale = isSelected ? 1.1 : 1.0
@@ -28,6 +28,8 @@ struct Cardify: Animatable, ViewModifier {
         if (isMatched == true && isSelected == true) {
             Color.green.opacity(0.5)
         } else if (isMatched == false && isSelected == true) {
+            Color.red.opacity(0.5)
+        } else if (isMatched == nil && isSelected == true) {
             Color.yellow
         } else {
             Color.white
@@ -67,7 +69,7 @@ struct Cardify: Animatable, ViewModifier {
 }
 
 extension View {
-    func cardify(isSelected: Bool, isMatched: Bool) -> some View {
+    func cardify(isSelected: Bool, isMatched: Bool?) -> some View {
         modifier(Cardify(isSelected: isSelected, isMatched: isMatched))
     }
 }

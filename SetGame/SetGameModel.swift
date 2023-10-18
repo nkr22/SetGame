@@ -34,7 +34,7 @@ struct SetGameModel {
     }
     
     private var selectedCardsIndices: [Int] {
-        get { dealtCards.indices.filter({dealtCards[$0].isSelected && !dealtCards[$0].isMatched }) }
+        get { dealtCards.indices.filter({dealtCards[$0].isSelected && dealtCards[$0].isMatched != true }) }
     }
     
     
@@ -80,9 +80,8 @@ struct SetGameModel {
                 switch selectedCardsIndices.count {
                 case 0...1:
                     dealtCards[selectedCard].isSelected = true
-                    print("0 or 1")
+                    print(dealtCards[selectedCard])
                 case 2:
-                    print("2")
                     if cardsAreASet(index: selectedCard) {
                         print("It is a set!")
                         dealtCards[selectedCard].isMatched = true
@@ -92,9 +91,10 @@ struct SetGameModel {
                         dealtCards[selectedCard].isSelected = true
                         dealtCards[selectedCard].isMatched = true
                         
-                        print("Cards that are matched: \(dealtCards.filter { $0.isMatched })")
+                        print("Cards that are matched: \(dealtCards.filter { $0.isMatched == true })")
                         let selectedCards = selectedCardsIndices.map { dealtCards[$0] }
                         score += getScore(cards: selectedCards)
+                        
                     } else {
                         for index in selectedCardsIndices {
                             dealtCards[index].isMatched = false
@@ -102,12 +102,12 @@ struct SetGameModel {
                         dealtCards[selectedCard].isSelected = true
                         dealtCards[selectedCard].isMatched = false
                     }
+                    print(dealtCards[selectedCard])
                 case 3:
-                    print("3")
                     resetSelection()
                     dealtCards[selectedCard].isSelected = true
+                    print(dealtCards[selectedCard])
                 default:
-                    print("else")
                     return
                 }
             } else if dealtCards[selectedCard].isSelected == true && dealtCards[selectedCard].isMatched == false {
@@ -123,69 +123,14 @@ struct SetGameModel {
         } else {
             return
         }
+        
+        
     }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-//            if dealtCards[selectedCard].isSelected {
-//                if dealtCards[selectedCard].isMatched {
-//                    resetSelection()
-//                } else {
-//                    dealtCards[selectedCard].isSelected = false
-//                }
-//            } else {
-//                switch selectedCardsIndices.count {
-//                case 0...1:
-//                    dealtCards[selectedCard].isSelected = true
-//                    print("0 or 1")
-//                case 2:
-//                    print("2")
-//                    if cardsAreASet(index: selectedCard) {
-//                        print("It is a set!")
-//                        dealtCards[selectedCard].isMatched = true
-//                        for index in selectedCardsIndices {
-//                            dealtCards[index].isMatched = true
-//                        }
-//                        dealtCards[selectedCard].isSelected = true
-//                        dealtCards[selectedCard].isMatched = true
-//                        
-//                        print("Cards that are matched: \(dealtCards.filter { $0.isMatched })")
-//                        let selectedCards = selectedCardsIndices.map { dealtCards[$0] }
-//                        score += getScore(cards: selectedCards)
-//                    } else {
-//                        for index in selectedCardsIndices {
-//                            dealtCards[index].isMatched = false
-//                        }
-//                        dealtCards[selectedCard].isSelected = true
-//                        dealtCards[selectedCard].isMatched = false
-//                    }
-//                case 3:
-//                    print("3")
-//                    resetSelection()
-//                    dealtCards[selectedCard].isSelected = true
-//                default:
-//                    print("else")
-//                    return
-//                }
-//            }
-//        } 
-//    }
-
     
     mutating func cardsAreASet(index: Int) -> Bool{
         let card1 = dealtCards[index]
         let card2 = dealtCards[selectedCardsIndices[0]]
         let card3 = dealtCards[selectedCardsIndices[1]]
-        
-        print(card1, card2, card3)
         
         return isSetMatch(cards: [card1, card2, card3])
     }
@@ -222,13 +167,9 @@ struct SetGameModel {
       
     mutating func isSetMatch(cards: [Card]) -> Bool {
         let colors = Set(cards.map { $0.color })
-        print("Colors: \(colors.count)")
         let symbols = Set(cards.map { $0.symbol })
-        print("Symbols: \(symbols.count)")
         let shadings = Set(cards.map { $0.shading })
-        print("Shadings: \(shadings.count)")
         let numbers = Set(cards.map { $0.number })
-        print("Numbers: \(numbers.count)")
 
         return (colors.count == 1 || colors.count == 3) &&
                (symbols.count == 1 || symbols.count == 3) &&
@@ -242,7 +183,7 @@ struct SetGameModel {
             if dealtCards[index].isMatched  == true {
                 dealtCards[index].isSelected = false
             } else {
-                dealtCards[index].isMatched = false
+                dealtCards[index].isMatched = nil
                 dealtCards[index].isSelected = false
             }
 
@@ -266,7 +207,7 @@ struct SetGameModel {
         let number: CardNumber
         let shading: CardShading
         
-        var isMatched = false
+        var isMatched: Bool?
         var isSelected = false
         var isOnScreen = false
         var score = 5
