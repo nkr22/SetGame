@@ -9,6 +9,7 @@ import SwiftUI
 
 struct Cardify: Animatable, ViewModifier {
     var isSelected: Bool
+    var isMatched: Bool
         
     var animatableData: Double {
         get { isSelected ? 1.1 : 1.0 }
@@ -17,24 +18,38 @@ struct Cardify: Animatable, ViewModifier {
     
     private var scale: Double
 
-    init(isSelected: Bool) {
+    init(isSelected: Bool, isMatched: Bool) {
         self.isSelected = isSelected
+        self.isMatched = isMatched
         self.scale = isSelected ? 1.1 : 1.0
+    }
+    
+    var backgroundColor: Color {
+        if (isMatched == true && isSelected == true) {
+            Color.green.opacity(0.5)
+        } else if (isMatched == false && isSelected == true) {
+            Color.yellow
+        } else {
+            Color.white
+        }
     }
     
     func body(content: Content) -> some View {
             GeometryReader{geometry in
                 ZStack{
                     RoundedRectangle(cornerRadius: cornerRadius(for: geometry.size)).stroke()
-                        .background(isSelected ? .yellow : .white)
+                        .background {
+                            backgroundColor
+                        }
                     content
+                        .animation(.spring().repeatForever(), value: isMatched == true)
                         
                 }
                 .padding(geometry.size.width * Card.paddingScaleFactor)
             }
             
             .aspectRatio(Card.aspectRatio, contentMode: .fit)
-            .scaleEffect(isSelected ? 1.1 : 1.0)
+            .scaleEffect(isSelected && isMatched == false ? 1.1 : 1.0)
             
     }
     
@@ -51,7 +66,7 @@ struct Cardify: Animatable, ViewModifier {
 }
 
 extension View {
-    func cardify(isSelected: Bool) -> some View {
-        modifier(Cardify(isSelected: isSelected))
+    func cardify(isSelected: Bool, isMatched: Bool) -> some View {
+        modifier(Cardify(isSelected: isSelected, isMatched: isMatched))
     }
 }

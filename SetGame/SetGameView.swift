@@ -14,6 +14,10 @@ struct SetGameView: View {
         
         GeometryReader { geometry in
                 VStack {
+                    Text("SET!")
+                        .font(.largeTitle)
+                        .bold()
+
                     ScrollView{
                         LazyVGrid(columns: columns(for: geometry.size)) {
                             ForEach(setGame.dealtCards) { card in
@@ -33,6 +37,8 @@ struct SetGameView: View {
                             Text("New Game")
                         }
                         Spacer()
+                        Text("\(setGame.score)")
+                        Spacer()
                         Button {
                             setGame.dealThreeMoreCards()
                         } label: {
@@ -41,6 +47,7 @@ struct SetGameView: View {
                         .foregroundStyle(setGame.dealingIsDisabled ? .gray : .blue)
                     }
                 }
+                
                 .padding()
             
         }
@@ -53,7 +60,28 @@ struct SetGameView: View {
     }
     
     private func columns(for size: CGSize) -> [GridItem] {
-        Array(repeating: GridItem(.flexible()), count: Int(size.width / Game.desiredCardWidth))
+        let minColumns = 2
+        var columns = minColumns
+        let visibleCardCount = setGame.dealtCards.count
+
+        while true {
+            columns += 1
+            let spacingWidth = CGFloat(columns - 1) * Card.paddingScaleFactor
+            let proposedCardWidth = (size.width - spacingWidth) / CGFloat(columns)
+            let rows = Int(ceil(Double(visibleCardCount) / Double(columns)))
+
+            let heightRequired = CGFloat(rows) * (proposedCardWidth / Card.aspectRatio) + CGFloat(rows - 1) * Card.paddingScaleFactor
+            if heightRequired <= size.height {
+                break
+            }
+        }
+
+        return Array(repeating: GridItem(.flexible()), count: columns)
+    }
+    
+    private struct Card {
+        static let aspectRatio: Double = 2.0/3.0
+        static let paddingScaleFactor = 0.04
     }
 }
 

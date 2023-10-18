@@ -11,23 +11,32 @@ struct SetGameModel {
     //NEEDSWORK
     
     var cards : [Card]
+    var deck: [Card]
+    var dealtCards: [Card]
     
-    //ENUM for shading
+    var score = 0
+    var dealingIsDisabled = false
+    
     enum CardShading: CaseIterable {
         case solid, shaded, none
     }
-    //ENUM for number
+
     enum CardNumber: Int, CaseIterable {
         case three = 3, two = 2, one = 1
     }
-    //ENUM for color
+
     enum CardColor: CaseIterable {
         case red, green, purple
     }
-    //ENUM for symbol
+
     enum CardSymbol: CaseIterable {
         case squiggle, diamond, oval
     }
+    
+    private var selectedCardsIndices: [Int] {
+        get { dealtCards.indices.filter({dealtCards[$0].isSelected && !dealtCards[$0].isMatched }) }
+    }
+    
     
     //setting up the 81 cards possible (3^4)
     
@@ -55,27 +64,130 @@ struct SetGameModel {
             }
         }
         //shuffling the cards
-        self.cards = cards.shuffled()
+        self.cards = cards
+        deck = cards.shuffled()
+        dealtCards = []
+    }
+    
+    private func getScore(cards: [Card]) -> Int {
+        let score = cards.reduce(0) { $0 + $1.score }
+        return score
     }
     
     mutating func selectCard(_ card: Card) {
-        for index in cards.indices {
-            if cards[index].id == card.id {
-                cards[index].isSelected.toggle()
+        if let selectedCard = dealtCards.firstIndex(where: {$0.id == card.id}) {
+            if dealtCards[selectedCard].isSelected {
+                if dealtCards[selectedCard].isMatched {
+                    resetSelection()
+                } else {
+                    dealtCards[selectedCard].isSelected = false
+                }
+            } else {
+                switch selectedCardsIndices.count {
+                case 0...1:
+                    dealtCards[selectedCard].isSelected = true
+                    print("0 or 1")
+                case 2:
+                    print("2")
+                    if cardsAreASet(index: selectedCard) {
+                        print("It is a set!")
+                        dealtCards[selectedCard].isMatched = true
+                        for index in selectedCardsIndices {
+                            dealtCards[index].isMatched = true
+                            dealtCards[index].isOnScreen = false
+                        }
+                        dealtCards[selectedCard].isMatched = true
+                        dealtCards[selectedCard].isOnScreen = false
+                        print("Cards that are matched: \(dealtCards.filter { $0.isMatched })")
+                        let selectedCards = selectedCardsIndices.map { dealtCards[$0] }
+                        score += getScore(cards: selectedCards)
+                    } else {
+                        for index in selectedCardsIndices {
+                            dealtCards[index].isMatched = false
+                        }
+                        resetSelection()
+                        dealtCards[selectedCard].isSelected = true
+                    }
+                case 3:
+                    print("3")
+                    resetSelection()
+                    dealtCards[selectedCard].isSelected = true
+                default:
+                    print("else")
+                    return
+                }
             }
         }
     }
+
     
+    mutating func cardsAreASet(index: Int) -> Bool{
+        let card1 = dealtCards[index]
+        let card2 = dealtCards[selectedCardsIndices[0]]
+        let card3 = dealtCards[selectedCardsIndices[1]]
+        
+        print(card1, card2, card3)
+        
+        return isSetMatch(cards: [card1, card2, card3])
+    }
+    
+    private mutating func checkToDisableDealing () {
+        
+        if deck.count < 3 {
+            dealingIsDisabled = true
+        }
+    }
+    
+    mutating func dealInitialCards() {
+        for index in 0..<12 {
+            deck[index].isOnScreen = true
+            dealtCards.append(deck[index])
+        }
+        deck = Array(deck.dropFirst(12))
+    }
+    
+    mutating func dealThreeMoreCards() {
+        if !dealingIsDisabled {
+            let cardsToDeal = deck.prefix(3)
+
+            for index in cardsToDeal.indices {
+                var card = cardsToDeal[index]
+                card.isOnScreen = true
+                dealtCards.append(card)
+            }
+
+            deck = Array(deck.dropFirst(3))
+            checkToDisableDealing()
+        }
+    }
+      
     mutating func isSetMatch(cards: [Card]) -> Bool {
         let colors = Set(cards.map { $0.color })
+        print("Colors: \(colors.count)")
         let symbols = Set(cards.map { $0.symbol })
+        print("Symbols: \(symbols.count)")
         let shadings = Set(cards.map { $0.shading })
+        print("Shadings: \(shadings.count)")
         let numbers = Set(cards.map { $0.number })
+        print("Numbers: \(numbers.count)")
 
         return (colors.count == 1 || colors.count == 3) &&
                (symbols.count == 1 || symbols.count == 3) &&
                (shadings.count == 1 || shadings.count == 3) &&
                (numbers.count == 1 || numbers.count == 3)
+    }
+    
+    
+    private mutating func resetSelection() {
+        dealtCards.indices.filter({dealtCards[$0].isOnScreen}).forEach() { index in
+            if dealtCards[index].isMatched  == true {
+                dealtCards[index].isSelected = false
+            } else {
+                dealtCards[index].isMatched = false
+                dealtCards[index].isSelected = false
+            }
+
+        }
     }
 
  
@@ -98,5 +210,6 @@ struct SetGameModel {
         var isMatched = false
         var isSelected = false
         var isOnScreen = false
+        var score = 5
     }
 }

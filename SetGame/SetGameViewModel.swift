@@ -12,55 +12,55 @@ import SwiftUI
     
     var cardsDealt = 12
     
-    var dealingIsDisabled = false
+    var dealingIsDisabled: Bool {
+        game.dealingIsDisabled
+    }
     
     private var game = createGame()
     //create game
     
-//    var score: Int {
-//        return game.score
-//    }
+    var score: Int {
+        return game.score
+    }
+    
     static func createGame() -> SetGameModel {
         SetGameModel()
     }
     
-    private func checkToDisableDealing () {
-        let cardsLeft = game.cards.filter({!$0.isOnScreen})
-        
-        if cardsLeft.count == 0 {
-            dealingIsDisabled = true
+    private var isVisible = false
+    
+    var dealtCards: Array<SetGameModel.Card> {
+        game.dealtCards
+    }
+    
+    var discardedCards: Array<SetGameModel.Card> = []
+    
+    
+    func discardCards() {
+        var i = 0
+        for card in discardedCards {
+            withAnimation(dealAnimation(order: i)) {
+                discard(card)
+                i+=1
+            }
         }
     }
     
-    private var isVisible = false
-    //which cards are dealt right now
-    var dealtCards: Array<SetGameModel.Card> {
-        isVisible ? game.cards.filter {$0.isOnScreen} : []
+    func discard(_ card: SetGameModel.Card) {
+        discardedCards.append(card)
+    }
+    
+    func dealAnimation(order: Int) -> Animation {
+        let delay = Double(order) * Constants.animationDuration
+        return Animation.easeInOut(duration: Constants.animationDuration).delay(delay)
     }
     
     func dealInitialCards() {
-        
-        for index in (0..<12) {
-            game.cards[index].isOnScreen = true
-        }
-        isVisible = true
+        game.dealInitialCards()
     }
     
     func dealThreeMoreCards() {
-        if !dealingIsDisabled {
-            let cardsToDeal = game.cards.filter { !$0.isOnScreen }.prefix(3)
-            
-            let updatedCards = game.cards.map { card in
-                var updatedCard = card
-                if cardsToDeal.contains(where: { $0.id == card.id }) {
-                    updatedCard.isOnScreen = true
-                }
-                return updatedCard
-            }
-            
-            game.cards = updatedCards
-            checkToDisableDealing()
-        }
+        game.dealThreeMoreCards()
     }
     
     func newGame () {
@@ -81,33 +81,6 @@ import SwiftUI
     private struct Constants {
         static let animationDuration = 0.5
     }
-    
-    //computed property for disabling the deal three cards button
-
-    //score to show to user on view
-    
-    //deal three more cards
-        //replace three selected cards if they are a match
-        //if selected cards are not a set, then fly in three new cards and do not deselect the current cards
-    
-    //clicking on a card
-        //select a card
-        
-        //unselect a card
-        
-        //if there are already three non-matching, unselect the previous three and select the new one
-    
-    //deal all the cards
-    
-    //set up new game
-    
-    //when three cards are selected
-        //red outline to card or green
-    
-    
-    
-    
-    
     
     
 }

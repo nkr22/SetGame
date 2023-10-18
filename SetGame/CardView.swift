@@ -16,7 +16,7 @@ struct CardView: View {
         
             }
             .padding(geometry.size.width * Card.paddingScaleFactor)
-            .cardify(isSelected: card.isSelected)
+            .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
             
         }
         .aspectRatio(Card.aspectRatio, contentMode: .fit)
