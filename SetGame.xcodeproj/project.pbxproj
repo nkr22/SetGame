@@ -15,6 +15,7 @@
 		8101F64F2AD8E15D00D06F89 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F64E2AD8E15D00D06F89 /* Cardify.swift */; };
 		8101F6512AD8EF4D00D06F89 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6502AD8EF4D00D06F89 /* CardView.swift */; };
 		8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6522AD8F08700D06F89 /* SymbolView.swift */; };
+		8101F6572AE09A2A00D06F89 /* Transition+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8101F6562AE09A2A00D06F89 /* Transition+Extensions.swift */; };
 		81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */; };
 		81225A702AD2216B00CD0F15 /* SetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81225A6F2AD2216B00CD0F15 /* SetGameView.swift */; };
 		81225A722AD2216D00CD0F15 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81225A712AD2216D00CD0F15 /* Assets.xcassets */; };
@@ -50,6 +51,7 @@
 		8101F64E2AD8E15D00D06F89 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 		8101F6502AD8EF4D00D06F89 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		8101F6522AD8F08700D06F89 /* SymbolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolView.swift; sourceTree = "<group>"; };
+		8101F6562AE09A2A00D06F89 /* Transition+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Transition+Extensions.swift"; sourceTree = "<group>"; };
 		81225A6A2AD2216B00CD0F15 /* SetGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SetGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81225A6D2AD2216B00CD0F15 /* SetGameApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameApp.swift; sourceTree = "<group>"; };
 		81225A6F2AD2216B00CD0F15 /* SetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGameView.swift; sourceTree = "<group>"; };
@@ -95,6 +97,7 @@
 				8101F64E2AD8E15D00D06F89 /* Cardify.swift */,
 				8101F6502AD8EF4D00D06F89 /* CardView.swift */,
 				8101F6522AD8F08700D06F89 /* SymbolView.swift */,
+				8101F6562AE09A2A00D06F89 /* Transition+Extensions.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				8101F6532AD8F08700D06F89 /* SymbolView.swift in Sources */,
 				81225A702AD2216B00CD0F15 /* SetGameView.swift in Sources */,
 				81225A6E2AD2216B00CD0F15 /* SetGameApp.swift in Sources */,
+				8101F6572AE09A2A00D06F89 /* Transition+Extensions.swift in Sources */,
 				8101F6492AD87FA300D06F89 /* SetGameViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

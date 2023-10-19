@@ -13,7 +13,13 @@ import SwiftUI
     var cardsDealt = 12
     
     var dealingIsDisabled: Bool {
-        game.dealingIsDisabled
+        withAnimation{
+            game.dealingIsDisabled
+        }
+    }
+    
+    var deck: Array<SetGameModel.Card> {
+        game.deck
     }
     
     private var game = createGame()
@@ -35,25 +41,12 @@ import SwiftUI
     
     var discardedCards: Array<SetGameModel.Card> = []
     
-    
-    func discardCards() {
-        var i = 0
-        for card in discardedCards {
-            withAnimation(dealAnimation(order: i)) {
-                discard(card)
-                i+=1
-            }
-        }
-    }
+
     
     func discard(_ card: SetGameModel.Card) {
         discardedCards.append(card)
     }
     
-    func dealAnimation(order: Int) -> Animation {
-        let delay = Double(order) * Constants.animationDuration
-        return Animation.easeInOut(duration: Constants.animationDuration).delay(delay)
-    }
     
     func dealInitialCards() {
         game.dealInitialCards()

@@ -110,7 +110,7 @@ struct SetGameModel {
                 default:
                     return
                 }
-            } else if dealtCards[selectedCard].isSelected == true && dealtCards[selectedCard].isMatched == false {
+            } else if dealtCards[selectedCard].isSelected == true && dealtCards[selectedCard].isMatched == false && selectedCardsIndices.count < 3 {
                 dealtCards[selectedCard].isSelected = false
             } else {
                 switch selectedCardsIndices.count {
@@ -144,8 +144,8 @@ struct SetGameModel {
     
     mutating func dealInitialCards() {
         for index in 0..<12 {
-            deck[index].isOnScreen = true
             dealtCards.append(deck[index])
+            dealtCards[index].isOnScreen = true
         }
         deck = Array(deck.dropFirst(12))
     }

@@ -8,8 +8,14 @@
 
 import SwiftUI
 
+enum TransitionType: CaseIterable {
+    case threeCards, newGame, selectCard
+}
+
 struct SetGameView: View {
     let setGame: SetGameViewModel
+    @State var transitionType: TransitionType = .newGame
+    
     var body: some View {
         
         GeometryReader { geometry in
@@ -24,9 +30,13 @@ struct SetGameView: View {
                             ForEach(setGame.dealtCards) { card in
                                 CardView(card: card)
                                     .onTapGesture {
+                                        transitionType = .selectCard
                                         setGame.selectCard(card)
                                     }
-                                
+                                    .transition(.cardTransition(size: geometry.size))
+                                    .animation( Animation.easeInOut(duration: 0.5)
+                                  .delay(transitionDelay(card: card)))
+      
                             }
                         }
                     }
@@ -34,7 +44,10 @@ struct SetGameView: View {
                     Spacer()
                     HStack {
                         Button {
-                            setGame.newGame()
+                            transitionType = .newGame
+                            withAnimation(Animation.easeInOut(duration: 0.2)) {
+                                setGame.newGame()
+                            }
                         } label: {
                             Text("New Game")
                         }
@@ -42,11 +55,13 @@ struct SetGameView: View {
                         Text("\(setGame.score)")
                         Spacer()
                         Button {
+                            transitionType = .threeCards
                             setGame.dealThreeMoreCards()
                         } label: {
                             Text("Deal 3 More Cards")
                         }
                         .foregroundStyle(setGame.dealingIsDisabled ? .gray : .blue)
+                        
                     }
                 }
                 
@@ -54,9 +69,12 @@ struct SetGameView: View {
             
         }
         .onAppear {
+            transitionType = .newGame
             setGame.dealInitialCards()
         }
+       
     }
+          
     private struct Game {
         static let desiredCardWidth = 80.0
     }
@@ -85,6 +103,22 @@ struct SetGameView: View {
         static let aspectRatio: Double = 2.0/3.0
         static let paddingScaleFactor = 0.04
     }
+    
+    private let cardTransitionDelay: Double = 0.2
+    private func transitionDelay(card: SetGameModel.Card) -> Double {
+        guard let index = setGame.dealtCards.firstIndex(where: { $0.id == card.id }) else {return 0}
+        
+        switch transitionType {
+        case .threeCards:
+            return Double(index-(setGame.dealtCards.count-1)) * cardTransitionDelay
+        case .newGame:
+            return Double(index) * cardTransitionDelay
+        case .selectCard:
+            return 0
+        }
+
+    }
+
 }
 
 

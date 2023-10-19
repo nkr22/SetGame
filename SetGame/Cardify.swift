@@ -44,8 +44,8 @@ struct Cardify: Animatable, ViewModifier {
                             backgroundColor
                         }
                     content
-                        .animation(.spring().repeatForever(), value: isMatched == true)
-                        .scaleEffect(isSelected && isMatched == true ? 1.1 : 1.0)
+                        .scaleEffect(isSelected && isMatched == true ? 1.2 : 1.0)
+                        .animation(Animation.spring(duration: 0.5).repeatForever(), value: isMatched)
                         
                 }
                 .padding(geometry.size.width * Card.paddingScaleFactor)
