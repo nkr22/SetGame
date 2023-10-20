@@ -9,11 +9,11 @@ import Foundation
 
 struct SetGameModel {
     
-    var cards : [Card]
-    var deck: [Card]
+    fileprivate var cards : [Card]
+    fileprivate(set) var deck: [Card]
     var dealtCards: [Card]
     var discardedCards: [Card]
-    var numberOfSets: Int = 0
+    var numberOfSets: Int
     
     var score = 0
     var dealingIsDisabled = false
@@ -66,6 +66,7 @@ struct SetGameModel {
         deck = cards.shuffled()
         dealtCards = []
         discardedCards = []
+        numberOfSets = 0
     }
     
     private func getScore() -> Int {
@@ -74,9 +75,11 @@ struct SetGameModel {
     }
     
     mutating func selectCard(_ card: Card) {
+        checkToDisableDealing()
         replaceThreeCards()
+        resetUnmatched()
         if let selectedCard = dealtCards.firstIndex(where: {$0.id == card.id}) {
-            if !dealtCards[selectedCard].isSelected {
+            if !dealtCards[selectedCard].isSelected && selectedCardsIndices.count <= 3{
                 switch selectedCardsIndices.count {
                 case 0...1:
                     dealtCards[selectedCard].isSelected = true
@@ -88,6 +91,7 @@ struct SetGameModel {
                         dealtCards[selectedCard].isSelected = true
                         dealtCards[selectedCard].isMatched = true
                         score += getScore()
+                        numberOfSets += 1
                     } else {
                         for index in selectedCardsIndices {
                             dealtCards[index].isMatched = false
@@ -104,8 +108,6 @@ struct SetGameModel {
                 default:
                     return
                 }
-            } else if dealtCards[selectedCard].isSelected == true && dealtCards[selectedCard].isMatched == false && selectedCardsIndices.count < 3 {
-                dealtCards[selectedCard].isSelected = false
             } else {
                 switch selectedCardsIndices.count {
                 case 1,2:
@@ -121,16 +123,7 @@ struct SetGameModel {
         
     }
     
-    mutating func replaceSet() {
-        for index in selectedCardsIndices {
-            dealtCards[index].isOnScreen = false
-            discardedCards.append(dealtCards[index])
-            dealtCards[index] = deck.prefix(1)[0]
-            dealtCards.remove(at: index)
-        }
-    }
-    
-    mutating func cardsAreASet(index: Int) -> Bool{
+    private mutating func cardsAreASet(index: Int) -> Bool{
         let card1 = dealtCards[index]
         let card2 = dealtCards[selectedCardsIndices[0]]
         let card3 = dealtCards[selectedCardsIndices[1]]
@@ -139,7 +132,6 @@ struct SetGameModel {
     }
     
     private mutating func checkToDisableDealing () {
-        
         if deck.count < 3 {
             dealingIsDisabled = true
         }
@@ -154,21 +146,27 @@ struct SetGameModel {
     }
     
     mutating func dealThreeMoreCards() {
+        resetSelection()
+        let cardsToDeal = deck.prefix(3)
         if !dealingIsDisabled {
-            let cardsToDeal = deck.prefix(3)
-
-            for index in cardsToDeal.indices {
-                var card = cardsToDeal[index]
-                card.isOnScreen = true
-                dealtCards.append(card)
+            if dealtCards.filter({$0.isMatched == true}).count > 0 {
+                dealtCards.indices.filter { dealtCards[$0].isMatched == true }.forEach { index in
+                    dealtCards[index] = deck.remove(at: 0)
+                }
+            } else{
+                for index in cardsToDeal.indices {
+                    var card = cardsToDeal[index]
+                    card.isOnScreen = true
+                    dealtCards.append(card)
+                }
+                
+                deck = Array(deck.dropFirst(3))
+                checkToDisableDealing()
             }
-
-            deck = Array(deck.dropFirst(3))
-            checkToDisableDealing()
         }
     }
       
-    mutating func isSetMatch(cards: [Card]) -> Bool {
+    private mutating func isSetMatch(cards: [Card]) -> Bool {
         let colors = Set(cards.map { $0.color })
         let symbols = Set(cards.map { $0.symbol })
         let shadings = Set(cards.map { $0.shading })
@@ -180,18 +178,28 @@ struct SetGameModel {
                (numbers.count == 1 || numbers.count == 3)
     }
     
-    private mutating func replaceThreeCards () {
-        if dealtCards.count <= 12, !deck.isEmpty {
-            dealtCards.indices.filter { dealtCards[$0].isMatched == true }.forEach { index in
-                dealtCards[index] = deck.remove(at: 0)
-            }
-        } else {
-            dealtCards = dealtCards.filter { $0.isMatched != true }
+    mutating func replaceSet() {
+        for index in selectedCardsIndices {
+            dealtCards[index].isOnScreen = false
+            discardedCards.append(dealtCards[index])
+            dealtCards[index] = deck.prefix(1)[0]
+            dealtCards.remove(at: index)
         }
     }
     
+    private mutating func replaceThreeCards () {
+        if dealtCards.count <= 12, !deck.isEmpty {
+            dealtCards.indices.filter { dealtCards[$0].isMatched == true }.forEach { index in
+            dealtCards[index] = deck.remove(at: 0)
+        }
+        } else {
+            dealtCards = dealtCards.filter { $0.isMatched != true }
+        }
+
+    }
+    
     private mutating func resetSelection() {
-        dealtCards.indices.filter({dealtCards[$0].isOnScreen}).forEach() { index in
+        dealtCards.indices.forEach() { index in
             if dealtCards[index].isMatched  == true {
                 dealtCards[index].isSelected = false
             } else {
@@ -201,8 +209,16 @@ struct SetGameModel {
 
         }
     }
-
     
+    private mutating func resetUnmatched() {
+        dealtCards.indices.forEach() { index in
+            if dealtCards[index].isMatched == false {
+                dealtCards[index].isMatched = nil
+                dealtCards[index].isSelected = false
+            }
+        }
+    }
+  
     struct Card: Identifiable, Equatable {
         let id: Int
         let color: CardColor

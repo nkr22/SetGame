@@ -10,18 +10,10 @@ import SwiftUI
 struct Cardify: Animatable, ViewModifier {
     var isSelected: Bool
     var isMatched: Bool?
-        
-    var animatableData: Double {
-        get { isSelected ? 1.1 : 1.0 }
-        set { scale = newValue }
-    }
-    
-    private var scale: Double
 
     init(isSelected: Bool, isMatched: Bool?) {
         self.isSelected = isSelected
         self.isMatched = isMatched
-        self.scale = isSelected ? 1.1 : 1.0
     }
     
     var backgroundColor: Color {

@@ -9,7 +9,7 @@
 import SwiftUI
 
 enum TransitionType: CaseIterable {
-    case threeCards, newGame, selectCard
+    case threeCards, newGame, selectCard, firstGame
 }
 
 struct SetGameView: View {
@@ -19,10 +19,13 @@ struct SetGameView: View {
         
         GeometryReader { geometry in
                 VStack {
-                    Text("SET!")
-                        .font(.largeTitle)
-                        .bold()
-
+                    HStack{
+                        Text("SET!")
+                            .font(.largeTitle)
+                            .bold()
+                        Spacer()
+                        Text("Number of Sets: \(setGame.numberOfSets)")
+                    }
                     
                     ScrollView{
                         LazyVGrid(columns: columns(for: geometry.size)) {
@@ -34,7 +37,8 @@ struct SetGameView: View {
                                     }
                                     .transition(.cardTransition(size: geometry.size))
                                     .animation(Animation.easeInOut(duration: 0.5)
-                                        .delay(transitionDelay(card: card)))
+                                        .delay(transitionDelay(card: card))
+                                    )
       
                             }
                         }
@@ -68,7 +72,7 @@ struct SetGameView: View {
             
         }
         .onAppear {
-            setGame.transitionType = .newGame
+            setGame.transitionType = .firstGame
             setGame.dealInitialCards()
         }
        
@@ -109,9 +113,11 @@ struct SetGameView: View {
         
         switch setGame.transitionType {
         case .threeCards:
-            return Double(index-(setGame.dealtCards.count-1)) * cardTransitionDelay
+            return 0
+        case .firstGame:
+            return Double(index) * 0.05
         case .newGame:
-            return Double(index) * cardTransitionDelay
+            return 0
         case .selectCard:
             return 0
         }

@@ -30,6 +30,10 @@ import SwiftUI
         game.discardedCards
     }
     
+    var numberOfSets: Int {
+        game.numberOfSets
+    }
+    
     var transitionType: TransitionType = .newGame
     
     private var game = createGame()
@@ -43,9 +47,6 @@ import SwiftUI
         SetGameModel()
     }
     
-    private var isVisible = false
-    
-    
     func dealInitialCards() {
         game.dealInitialCards()
     }
@@ -56,7 +57,9 @@ import SwiftUI
     
     func newGame () {
         game = SetGameViewModel.createGame()
-        dealInitialCards()
+        withAnimation {
+            dealInitialCards()
+        }
     }
     
     func selectCard(_ card: SetGameModel.Card) {
