@@ -63,7 +63,7 @@ struct SymbolView: View {
             }
             .frame(height: size.width / 2)
             .rotationEffect(Angle(degrees: 180))
-            .rotationEffect(Angle(degrees: 90))
+
     }
 
 }

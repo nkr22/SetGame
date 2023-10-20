@@ -14,7 +14,6 @@ enum TransitionType: CaseIterable {
 
 struct SetGameView: View {
     let setGame: SetGameViewModel
-    @State var transitionType: TransitionType = .newGame
     
     var body: some View {
         
@@ -30,12 +29,12 @@ struct SetGameView: View {
                             ForEach(setGame.dealtCards) { card in
                                 CardView(card: card)
                                     .onTapGesture {
-                                        transitionType = .selectCard
+                                        setGame.transitionType = .selectCard
                                         setGame.selectCard(card)
                                     }
                                     .transition(.cardTransition(size: geometry.size))
-                                    .animation( Animation.easeInOut(duration: 0.5)
-                                  .delay(transitionDelay(card: card)))
+                                    .animation(Animation.easeInOut(duration: 0.5)
+                                        .delay(transitionDelay(card: card)))
       
                             }
                         }
@@ -44,7 +43,7 @@ struct SetGameView: View {
                     Spacer()
                     HStack {
                         Button {
-                            transitionType = .newGame
+                            setGame.transitionType = .newGame
                             withAnimation(Animation.easeInOut(duration: 0.2)) {
                                 setGame.newGame()
                             }
@@ -55,7 +54,7 @@ struct SetGameView: View {
                         Text("\(setGame.score)")
                         Spacer()
                         Button {
-                            transitionType = .threeCards
+                            setGame.transitionType = .threeCards
                             setGame.dealThreeMoreCards()
                         } label: {
                             Text("Deal 3 More Cards")
@@ -69,7 +68,7 @@ struct SetGameView: View {
             
         }
         .onAppear {
-            transitionType = .newGame
+            setGame.transitionType = .newGame
             setGame.dealInitialCards()
         }
        
@@ -91,7 +90,7 @@ struct SetGameView: View {
             let rows = Int(ceil(Double(visibleCardCount) / Double(columns)))
 
             let heightRequired = CGFloat(rows) * (proposedCardWidth / Card.aspectRatio) + CGFloat(rows - 1) * Card.paddingScaleFactor
-            if heightRequired <= size.height {
+            if heightRequired <= size.height * 0.9 {
                 break
             }
         }
@@ -100,15 +99,15 @@ struct SetGameView: View {
     }
     
     private struct Card {
-        static let aspectRatio: Double = 2.0/3.0
-        static let paddingScaleFactor = 0.04
+        static let aspectRatio: Double = 3.0/2.0
+        static let paddingScaleFactor = 0.5
     }
     
     private let cardTransitionDelay: Double = 0.2
     private func transitionDelay(card: SetGameModel.Card) -> Double {
         guard let index = setGame.dealtCards.firstIndex(where: { $0.id == card.id }) else {return 0}
         
-        switch transitionType {
+        switch setGame.transitionType {
         case .threeCards:
             return Double(index-(setGame.dealtCards.count-1)) * cardTransitionDelay
         case .newGame:

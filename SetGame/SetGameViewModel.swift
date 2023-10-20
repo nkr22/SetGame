@@ -22,6 +22,16 @@ import SwiftUI
         game.deck
     }
     
+    var dealtCards: Array<SetGameModel.Card> {
+        game.dealtCards
+    }
+    
+    var discardedCards: Array<SetGameModel.Card> {
+        game.discardedCards
+    }
+    
+    var transitionType: TransitionType = .newGame
+    
     private var game = createGame()
     //create game
     
@@ -34,18 +44,6 @@ import SwiftUI
     }
     
     private var isVisible = false
-    
-    var dealtCards: Array<SetGameModel.Card> {
-        game.dealtCards
-    }
-    
-    var discardedCards: Array<SetGameModel.Card> = []
-    
-
-    
-    func discard(_ card: SetGameModel.Card) {
-        discardedCards.append(card)
-    }
     
     
     func dealInitialCards() {

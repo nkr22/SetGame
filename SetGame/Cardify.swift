@@ -28,7 +28,7 @@ struct Cardify: Animatable, ViewModifier {
         if (isMatched == true && isSelected == true) {
             Color.green.opacity(0.5)
         } else if (isMatched == false && isSelected == true) {
-            Color.red.opacity(0.5)
+            Color.pink.opacity(0.5)
         } else if (isMatched == nil && isSelected == true) {
             Color.yellow
         } else {
@@ -48,7 +48,6 @@ struct Cardify: Animatable, ViewModifier {
                         .animation(Animation.spring(duration: 0.5).repeatForever(), value: isMatched)
                         
                 }
-                .padding(geometry.size.width * Card.paddingScaleFactor)
             }
             
             .aspectRatio(Card.aspectRatio, contentMode: .fit)
@@ -62,8 +61,8 @@ struct Cardify: Animatable, ViewModifier {
     }
     
     private struct Card {
-        static let aspectRatio: Double = 2.0/3.0
-        static let paddingScaleFactor = 0.04
+        static let aspectRatio: Double = 3.0/2.0
+        static let paddingScaleFactor = 0.1
     }
     
 }

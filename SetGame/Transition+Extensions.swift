@@ -12,7 +12,6 @@ public extension AnyTransition {
     static func cardTransition(size: CGSize) -> AnyTransition {
         let insertion = AnyTransition.offset(flyFrom (for: size))
         let removal = AnyTransition.offset(flyTo (for: size))
-//            .combined(with: AnyTransition.scale(scale: 0.5))
         
         return .asymmetric(insertion: insertion, removal: removal)
     }

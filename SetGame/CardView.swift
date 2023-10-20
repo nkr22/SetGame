@@ -28,8 +28,8 @@ struct CardView: View {
     
     // MARK: - Drawing Constants
     private struct Card {
-        static let aspectRatio: Double = 2.0/3.0
-        static let paddingScaleFactor = 0.04
+        static let aspectRatio: Double = 3.0/2.0
+        static let paddingScaleFactor = 0.1
     }
     
 }
