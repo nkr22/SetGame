@@ -69,5 +69,5 @@ struct SymbolView: View {
 }
 
 #Preview {
-    SymbolView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .one, shading: .shaded), size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    SymbolView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .one, shading: .shaded), size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 }

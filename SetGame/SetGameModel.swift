@@ -39,7 +39,6 @@ struct SetGameModel {
     }
     
     init() {
-        var count = 1
         var cards = [Card]()
         
         for color in CardColor.allCases {
@@ -48,15 +47,13 @@ struct SetGameModel {
                     for number in CardNumber.allCases {
                         cards.append(
                             Card(
-                                id: count,
+                                id: UUID(),
                                 color: color,
                                 symbol: symbol,
                                 number: number,
                                 shading: shading
                             )
                         )
-                        
-                        count += 1
                     }
                 }
             }
@@ -220,7 +217,7 @@ struct SetGameModel {
     }
   
     struct Card: Identifiable, Equatable {
-        let id: Int
+        let id: UUID
         let color: CardColor
         let symbol: CardSymbol
         let number: CardNumber

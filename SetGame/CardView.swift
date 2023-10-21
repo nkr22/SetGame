@@ -35,5 +35,5 @@ struct CardView: View {
 }
 
 #Preview {
-    CardView(card: SetGameModel.Card(id: 0, color: .green, symbol: .diamond, number: .three, shading: .shaded))
+    CardView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .three, shading: .shaded))
 }
