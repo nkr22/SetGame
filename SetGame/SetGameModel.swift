@@ -11,11 +11,11 @@ struct SetGameModel {
     
     fileprivate var cards : [Card]
     fileprivate(set) var deck: [Card]
-    var dealtCards: [Card]
-    var discardedCards: [Card]
-    var numberOfSets: Int
+    fileprivate(set) var dealtCards: [Card]
+    fileprivate(set) var discardedCards: [Card]
+    fileprivate(set) var numberOfSets: Int
     
-    var score = 0
+    fileprivate(set) var score = 0
     var dealingIsDisabled = false
     
     enum CardShading: CaseIterable {

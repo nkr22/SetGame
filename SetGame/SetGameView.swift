@@ -115,7 +115,7 @@ struct SetGameView: View {
         case .threeCards:
             return 0
         case .firstGame:
-            return Double(index) * 0.05
+            return Double(index) * 0.1
         case .newGame:
             return 0
         case .selectCard:
