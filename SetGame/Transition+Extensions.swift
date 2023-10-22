@@ -17,11 +17,11 @@ public extension AnyTransition {
     }
     
     static func flyFrom(for size:CGSize) -> CGSize {
-        CGSize(width: 0.0/*CGFloat.random(in: -size.width/2...size.width/2)*/,
+        CGSize(width: 0.0,
                height: 2 * size.height)
     }
     static func flyTo(for size:CGSize) -> CGSize {
-        CGSize(width:  CGFloat.random(in: -3*size.width...3*size.width),
-               height: CGFloat.random(in: -2*size.height...(-size.height)))
+        CGSize(width:  CGFloat.random(in: -5*size.width...5*size.width),
+               height: CGFloat.random(in: -3*size.height...(-size.height)))
     }
 }

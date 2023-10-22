@@ -12,7 +12,6 @@ struct SetGameModel {
     fileprivate var cards : [Card]
     var deck: [Card]
     var dealtCards: [Card]
-    var discardedCards: [Card]
     fileprivate(set) var numberOfSets: Int
     
     fileprivate(set) var score = 0
@@ -62,7 +61,6 @@ struct SetGameModel {
         self.cards = cards
         deck = cards.shuffled()
         dealtCards = []
-        discardedCards = []
         numberOfSets = 0
     }
     
@@ -160,7 +158,6 @@ struct SetGameModel {
     mutating func replaceSet() {
         for index in selectedCardsIndices {
             dealtCards[index].isOnScreen = false
-            discardedCards.append(dealtCards[index])
             dealtCards[index] = deck.prefix(1)[0]
             dealtCards.remove(at: index)
         }

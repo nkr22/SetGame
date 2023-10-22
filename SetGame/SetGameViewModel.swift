@@ -19,6 +19,10 @@ import SwiftUI
         }
     }
     
+    var matchedCardIndices: [Int] {
+        dealtCards.indices.filter { dealtCards[$0].isMatched == true }
+    }
+    
     static func createGame() -> SetGameModel {
         SetGameModel()
     }
@@ -30,10 +34,6 @@ import SwiftUI
     
     var dealtCards: Array<SetGameModel.Card> {
         game.dealtCards
-    }
-    
-    var discardedCards: Array<SetGameModel.Card> {
-        game.discardedCards
     }
     
     var numberOfSets: Int {
@@ -58,14 +58,9 @@ import SwiftUI
         game.resetSelection()
 
         if !dealingIsDisabled {
-            let matchedCardIndices = dealtCards.indices.filter { dealtCards[$0].isMatched == true }
             
             if !matchedCardIndices.isEmpty {
-                for (index, matchedIndex) in matchedCardIndices.enumerated() {
-                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
-                        game.replaceOneCard(index: matchedIndex)
-                    }
-                }
+                replaceMatch()
             } else {
                 for index in 0..<3 {
                     if deck.isEmpty {
@@ -92,19 +87,19 @@ import SwiftUI
     }
     
     func replaceMatch() {
-        if !dealingIsDisabled {
-            let matchedCardIndices = dealtCards.indices.filter { dealtCards[$0].isMatched == true }
-            
-            if !matchedCardIndices.isEmpty {
-                for (index, matchedIndex) in matchedCardIndices.enumerated() {
-                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
-                        game.replaceOneCard(index: matchedIndex)
+            if dealtCards.count <= 12 && !dealingIsDisabled {
+                    for (index, matchedIndex) in matchedCardIndices.enumerated() {
+                        withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
+                            game.replaceOneCard(index: matchedIndex)
+                        }
                     }
+            } else if dealtCards.count > 12 {
+                withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
+                    game.dealtCards = game.dealtCards.filter({$0.isMatched != true})
                 }
             }
             
             game.checkToDisableDealing()
-        }
     }
     
     func selectCard(_ card: SetGameModel.Card) {

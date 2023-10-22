@@ -73,7 +73,10 @@ struct SetGameView: View {
                 .font(.largeTitle)
                 .bold()
             Spacer()
-            Text("Number of Sets: \(setGame.numberOfSets)")
+            VStack(alignment: .trailing) {
+                Text("Number of Sets: \(setGame.numberOfSets)")
+                Text("Score: \(setGame.score)")
+            }
         }
     }
     
@@ -85,7 +88,7 @@ struct SetGameView: View {
                 Text("New Game")
             }
             Spacer()
-            Text("\(setGame.score)")
+            Text("Cards Left: \(setGame.deck.count)")
             Spacer()
             Button {
                 setGame.dealThreeMoreCards()
