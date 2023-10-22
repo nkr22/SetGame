@@ -40,9 +40,6 @@ import SwiftUI
         game.numberOfSets
     }
     
-    var transitionType: TransitionType = .newGame
-    
-    
     var score: Int {
         return game.score
     }

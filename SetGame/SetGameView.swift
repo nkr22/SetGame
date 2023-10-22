@@ -8,10 +8,6 @@
 
 import SwiftUI
 
-enum TransitionType: CaseIterable {
-    case threeCards, newGame, selectCard, firstGame
-}
-
 struct SetGameView: View {
     let setGame: SetGameViewModel
     
@@ -19,14 +15,7 @@ struct SetGameView: View {
         
         GeometryReader { geometry in
                 VStack {
-                    HStack{
-                        Text("SET!")
-                            .font(.largeTitle)
-                            .bold()
-                        Spacer()
-                        Text("Number of Sets: \(setGame.numberOfSets)")
-                    }
-                    
+                    topMenu
                     ScrollView{
                         LazyVGrid(columns: columns(for: geometry.size)) {
                             ForEach(setGame.dealtCards) { card in
@@ -38,25 +27,8 @@ struct SetGameView: View {
                             }
                         }
                     }
-                    
                     Spacer()
-                    HStack {
-                        Button {
-                            setGame.newGame()
-                        } label: {
-                            Text("New Game")
-                        }
-                        Spacer()
-                        Text("\(setGame.score)")
-                        Spacer()
-                        Button {
-                            setGame.dealThreeMoreCards()
-                        } label: {
-                            Text("Deal 3 More Cards")
-                        }
-                        .foregroundStyle(setGame.dealingIsDisabled ? .gray : .blue)
-                        
-                    }
+                    bottomMenu
                 }
                 
                 .padding()
@@ -96,10 +68,39 @@ struct SetGameView: View {
         static let aspectRatio: Double = 3.0/2.0
         static let paddingScaleFactor = 0.5
     }
+    
+    var topMenu: some View {
+        HStack{
+            Text("SET!")
+                .font(.largeTitle)
+                .bold()
+            Spacer()
+            Text("Number of Sets: \(setGame.numberOfSets)")
+        }
+    }
+    
+    var bottomMenu: some View {
+        HStack {
+            Button {
+                setGame.newGame()
+            } label: {
+                Text("New Game")
+            }
+            Spacer()
+            Text("\(setGame.score)")
+            Spacer()
+            Button {
+                setGame.dealThreeMoreCards()
+            } label: {
+                Text("Deal 3 More Cards")
+            }
+            .foregroundStyle(setGame.dealingIsDisabled ? .gray : .blue)
+            
+        }
+    }
 
 
 }
-
 
 
 #Preview {

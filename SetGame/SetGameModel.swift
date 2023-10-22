@@ -138,14 +138,12 @@ struct SetGameModel {
         guard !deck.isEmpty else { return }
         let card = deck.removeFirst()
         dealtCards.append(card)
-        deck.removeFirst()
     }
     
     mutating func replaceOneCard(index: Int) {
         guard !deck.isEmpty else { return }
         let card = deck.removeFirst()
         dealtCards[index] = card
-        deck.removeFirst()
     }
 //    mutating func dealInitialCards() {
 //        for _ in 0..<12 {
