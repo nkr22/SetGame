@@ -56,7 +56,7 @@ struct SetGameView: View {
             let rows = Int(ceil(Double(visibleCardCount) / Double(columns)))
 
             let heightRequired = CGFloat(rows) * (proposedCardWidth / Card.aspectRatio) + CGFloat(rows - 1) * Card.paddingScaleFactor
-            if heightRequired <= size.height * 0.9 {
+            if heightRequired <= size.height * 0.8 {
                 break
             }
         }

@@ -66,11 +66,6 @@ struct SetGameModel {
         numberOfSets = 0
     }
     
-    private func getScore() -> Int {
-        let score = 3 * (30 / dealtCards.count)
-        return score
-    }
-    
     mutating func selectCard(_ card: Card) {
         checkToDisableDealing()
         replaceThreeCards()
@@ -128,7 +123,7 @@ struct SetGameModel {
         return isSetMatch(cards: [card1, card2, card3])
     }
     
-    mutating func checkToDisableDealing () {
+    mutating func checkToDisableDealing() {
         if deck.count < 3 {
             dealingIsDisabled = true
         }
@@ -140,40 +135,12 @@ struct SetGameModel {
         dealtCards.append(card)
     }
     
-    mutating func replaceOneCard(index: Int) {
-        guard !deck.isEmpty else { return }
-        let card = deck.removeFirst()
-        dealtCards[index] = card
+    private func getScore() -> Int {
+        let score = 3 * (50 / dealtCards.count)
+        return score
     }
-//    mutating func dealInitialCards() {
-//        for _ in 0..<12 {
-//            dealOneCard()
-//        }
-//        deck = Array(deck.dropFirst(12))
-//    }
-    
-//    mutating func dealThreeMoreCards() {
-//        resetSelection()
-//        let cardsToDeal = deck.prefix(3)
-//        if !dealingIsDisabled {
-//            if dealtCards.filter({$0.isMatched == true}).count > 0 {
-//                dealtCards.indices.filter { dealtCards[$0].isMatched == true }.forEach { index in
-//                    dealtCards[index] = deck.remove(at: 0)
-//                }
-//            } else{
-//                for index in cardsToDeal.indices {
-//                    var card = cardsToDeal[index]
-//                    dealtCards.append(card)
-//                }
-//                
-//                deck = Array(deck.dropFirst(3))
-//                checkToDisableDealing()
-//            }
-//        }
-//    }
-    
 
-      
+
     private mutating func isSetMatch(cards: [Card]) -> Bool {
         let colors = Set(cards.map { $0.color })
         let symbols = Set(cards.map { $0.symbol })
@@ -184,6 +151,12 @@ struct SetGameModel {
                (symbols.count == 1 || symbols.count == 3) &&
                (shadings.count == 1 || shadings.count == 3) &&
                (numbers.count == 1 || numbers.count == 3)
+    }
+    
+    mutating func replaceOneCard(index: Int) {
+        guard !deck.isEmpty else { return }
+        let card = deck.removeFirst()
+        dealtCards[index] = card
     }
     
     mutating func replaceSet() {
