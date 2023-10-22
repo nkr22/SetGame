@@ -8,9 +8,10 @@
 import SwiftUI
 
 @Observable class SetGameViewModel {
-    //NEEDSWORK
-    
+    //MARK: - Properties
     var cardsDealt = 12
+    
+    private var game = createGame()
     
     var dealingIsDisabled: Bool {
         withAnimation{
@@ -18,6 +19,11 @@ import SwiftUI
         }
     }
     
+    static func createGame() -> SetGameModel {
+        SetGameModel()
+    }
+    
+    //MARK: - Model Access
     var deck: Array<SetGameModel.Card> {
         game.deck
     }
@@ -36,29 +42,55 @@ import SwiftUI
     
     var transitionType: TransitionType = .newGame
     
-    private var game = createGame()
-    //create game
     
     var score: Int {
         return game.score
     }
     
-    static func createGame() -> SetGameModel {
-        SetGameModel()
-    }
-    
+
+    //MARK: - User Intents
     func dealInitialCards() {
-        game.dealInitialCards()
+        for index in 0..<cardsDealt {
+               withAnimation(Animation.easeInOut(duration: 0.5).delay(Double(index) * 0.1)) {
+                   game.dealOneCard()
+               }
+           }
     }
     
     func dealThreeMoreCards() {
-        game.dealThreeMoreCards()
+        game.resetSelection()
+
+        if !dealingIsDisabled {
+            let matchedCardIndices = dealtCards.indices.filter { dealtCards[$0].isMatched == true }
+            
+            if !matchedCardIndices.isEmpty {
+                for (index, matchedIndex) in matchedCardIndices.enumerated() {
+                    withAnimation(Animation.easeInOut(duration: 0.5).delay(0.1 * Double(index))) {
+                        game.replaceOneCard(index: matchedIndex)
+                    }
+                }
+            } else {
+                for index in 0..<3 {
+                    if deck.isEmpty {
+                        break
+                    }
+                    withAnimation(Animation.easeInOut(duration: 0.5).delay(0.1 * Double(index))) {
+                        game.dealOneCard()
+                    }
+                }
+            }
+            game.checkToDisableDealing()
+        }
     }
     
     func newGame () {
-        game = SetGameViewModel.createGame()
-        withAnimation {
-            dealInitialCards()
+        withAnimation(Animation.easeInOut(duration: 0.5)){
+            game = SetGameViewModel.createGame()
+        }
+        for index in 0..<cardsDealt {
+            withAnimation(Animation.easeInOut(duration: 0.5).delay(Double(index) * 0.1)) {
+                game.dealOneCard()
+            }
         }
     }
     
@@ -68,10 +100,7 @@ import SwiftUI
         }
     }
 
-    
-    
     //MARK: - Constants
-    
     private struct Constants {
         static let animationDuration = 0.5
     }

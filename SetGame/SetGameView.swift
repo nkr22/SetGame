@@ -32,14 +32,9 @@ struct SetGameView: View {
                             ForEach(setGame.dealtCards) { card in
                                 CardView(card: card)
                                     .onTapGesture {
-                                        setGame.transitionType = .selectCard
                                         setGame.selectCard(card)
                                     }
                                     .transition(.cardTransition(size: geometry.size))
-                                    .animation(Animation.easeInOut(duration: 0.5)
-                                        .delay(transitionDelay(card: card))
-                                    )
-      
                             }
                         }
                     }
@@ -47,10 +42,7 @@ struct SetGameView: View {
                     Spacer()
                     HStack {
                         Button {
-                            setGame.transitionType = .newGame
-                            withAnimation(Animation.easeInOut(duration: 0.2)) {
-                                setGame.newGame()
-                            }
+                            setGame.newGame()
                         } label: {
                             Text("New Game")
                         }
@@ -58,7 +50,6 @@ struct SetGameView: View {
                         Text("\(setGame.score)")
                         Spacer()
                         Button {
-                            setGame.transitionType = .threeCards
                             setGame.dealThreeMoreCards()
                         } label: {
                             Text("Deal 3 More Cards")
@@ -72,7 +63,6 @@ struct SetGameView: View {
             
         }
         .onAppear {
-            setGame.transitionType = .firstGame
             setGame.dealInitialCards()
         }
        
@@ -106,23 +96,7 @@ struct SetGameView: View {
         static let aspectRatio: Double = 3.0/2.0
         static let paddingScaleFactor = 0.5
     }
-    
-    private let cardTransitionDelay: Double = 0.2
-    private func transitionDelay(card: SetGameModel.Card) -> Double {
-        guard let index = setGame.dealtCards.firstIndex(where: { $0.id == card.id }) else {return 0}
-        
-        switch setGame.transitionType {
-        case .threeCards:
-            return 0
-        case .firstGame:
-            return Double(index) * 0.1
-        case .newGame:
-            return 0
-        case .selectCard:
-            return 0
-        }
 
-    }
 
 }
 
