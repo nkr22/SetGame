@@ -42,7 +42,7 @@ struct Cardify: Animatable, ViewModifier {
                 }
             }
             
-            .aspectRatio(Card.aspectRatio, contentMode: .fit)
+            .aspectRatio(CardConstants.aspectRatio, contentMode: .fit)
             
             
     }
@@ -50,11 +50,6 @@ struct Cardify: Animatable, ViewModifier {
     // MARK: - Drawing Constants
     private func cornerRadius(for size: CGSize) -> Double {
         min(size.width, size.height) * 0.08
-    }
-    
-    private struct Card {
-        static let aspectRatio: Double = 3.0/2.0
-        static let paddingScaleFactor = 0.1
     }
     
 }

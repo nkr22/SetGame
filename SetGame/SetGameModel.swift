@@ -68,7 +68,6 @@ struct SetGameModel {
     
     mutating func selectCard(_ card: Card) {
         checkToDisableDealing()
-        replaceThreeCards()
         resetUnmatched()
         if let selectedCard = dealtCards.firstIndex(where: {$0.id == card.id}) {
             if !dealtCards[selectedCard].isSelected && selectedCardsIndices.count <= 3{
@@ -111,7 +110,6 @@ struct SetGameModel {
         } else {
             return
         }
-        
         
     }
     

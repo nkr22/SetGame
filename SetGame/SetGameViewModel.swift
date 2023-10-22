@@ -48,7 +48,7 @@ import SwiftUI
     //MARK: - User Intents
     func dealInitialCards() {
         for index in 0..<cardsDealt {
-               withAnimation(Animation.easeInOut(duration: 0.5).delay(Double(index) * 0.1)) {
+               withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(Double(index) * 0.1)) {
                    game.dealOneCard()
                }
            }
@@ -62,7 +62,7 @@ import SwiftUI
             
             if !matchedCardIndices.isEmpty {
                 for (index, matchedIndex) in matchedCardIndices.enumerated() {
-                    withAnimation(Animation.easeInOut(duration: 0.5).delay(0.1 * Double(index))) {
+                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
                         game.replaceOneCard(index: matchedIndex)
                     }
                 }
@@ -71,7 +71,7 @@ import SwiftUI
                     if deck.isEmpty {
                         break
                     }
-                    withAnimation(Animation.easeInOut(duration: 0.5).delay(0.1 * Double(index))) {
+                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
                         game.dealOneCard()
                     }
                 }
@@ -81,26 +81,37 @@ import SwiftUI
     }
     
     func newGame () {
-        withAnimation(Animation.easeInOut(duration: 0.5)){
+        withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
             game = SetGameViewModel.createGame()
         }
         for index in 0..<cardsDealt {
-            withAnimation(Animation.easeInOut(duration: 0.5).delay(Double(index) * 0.1)) {
+            withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(Double(index) * 0.1)) {
                 game.dealOneCard()
             }
         }
     }
     
+    func replaceMatch() {
+        if !dealingIsDisabled {
+            let matchedCardIndices = dealtCards.indices.filter { dealtCards[$0].isMatched == true }
+            
+            if !matchedCardIndices.isEmpty {
+                for (index, matchedIndex) in matchedCardIndices.enumerated() {
+                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
+                        game.replaceOneCard(index: matchedIndex)
+                    }
+                }
+            }
+            
+            game.checkToDisableDealing()
+        }
+    }
+    
     func selectCard(_ card: SetGameModel.Card) {
-        withAnimation(.easeIn(duration: Constants.animationDuration)){
+        replaceMatch()
+        withAnimation(.easeIn(duration: CardConstants.animationDuration)){
             game.selectCard(card)
         }
     }
-
-    //MARK: - Constants
-    private struct Constants {
-        static let animationDuration = 0.5
-    }
-    
     
 }

@@ -10,6 +10,9 @@ import SwiftUI
 
 struct SetGameView: View {
     let setGame: SetGameViewModel
+    var cardsAreMatched: Bool {
+        setGame.dealtCards.filter({$0.isMatched == true}).count > 0
+    }
     
     var body: some View {
         
@@ -51,22 +54,17 @@ struct SetGameView: View {
 
         while true {
             columns += 1
-            let spacingWidth = CGFloat(columns - 1) * Card.paddingScaleFactor
+            let spacingWidth = CGFloat(columns - 1) * CardConstants.paddingScaleFactor
             let proposedCardWidth = (size.width - spacingWidth) / CGFloat(columns)
             let rows = Int(ceil(Double(visibleCardCount) / Double(columns)))
 
-            let heightRequired = CGFloat(rows) * (proposedCardWidth / Card.aspectRatio) + CGFloat(rows - 1) * Card.paddingScaleFactor
+            let heightRequired = CGFloat(rows) * (proposedCardWidth / CardConstants.aspectRatio) + CGFloat(rows - 1) * CardConstants.paddingScaleFactor
             if heightRequired <= size.height * 0.8 {
                 break
             }
         }
 
         return Array(repeating: GridItem(.flexible()), count: columns)
-    }
-    
-    private struct Card {
-        static let aspectRatio: Double = 3.0/2.0
-        static let paddingScaleFactor = 0.5
     }
     
     var topMenu: some View {

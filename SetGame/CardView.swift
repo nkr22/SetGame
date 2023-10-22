@@ -15,22 +15,17 @@ struct CardView: View {
                 SymbolView(card: card, size: geometry.size)
         
             }
-            .padding(geometry.size.width * Card.paddingScaleFactor)
+            .padding(geometry.size.width * CardConstants.paddingScaleFactor)
             .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
             
         }
-        .aspectRatio(Card.aspectRatio, contentMode: .fit)
+        .aspectRatio(CardConstants.aspectRatio, contentMode: .fit)
         
         
         
         
     }
-    
-    // MARK: - Drawing Constants
-    private struct Card {
-        static let aspectRatio: Double = 3.0/2.0
-        static let paddingScaleFactor = 0.1
-    }
+
     
 }
 
