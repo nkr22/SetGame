@@ -93,7 +93,7 @@ import SwiftUI
                             game.replaceOneCard(index: matchedIndex)
                         }
                     }
-            } else if dealtCards.count > 12 {
+            } else {
                 withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
                     game.dealtCards = game.dealtCards.filter({$0.isMatched != true})
                 }

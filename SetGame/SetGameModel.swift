@@ -157,7 +157,6 @@ struct SetGameModel {
     
     mutating func replaceSet() {
         for index in selectedCardsIndices {
-            dealtCards[index].isOnScreen = false
             dealtCards[index] = deck.prefix(1)[0]
             dealtCards.remove(at: index)
         }
@@ -204,7 +203,6 @@ struct SetGameModel {
         
         var isMatched: Bool?
         var isSelected = false
-        var isOnScreen = false
         var score = 5
     }
 }
