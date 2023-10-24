@@ -77,6 +77,7 @@ struct SetGameView: View {
                 Text("Number of Sets: \(setGame.numberOfSets)")
                 Text("Score: \(setGame.score)")
             }
+            .font(.headline)
         }
     }
     

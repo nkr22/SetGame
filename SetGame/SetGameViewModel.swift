@@ -55,7 +55,9 @@ import SwiftUI
     }
     
     func dealThreeMoreCards() {
-        game.resetSelection()
+        withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
+            game.resetSelection()
+        }
 
         if !dealingIsDisabled {
             

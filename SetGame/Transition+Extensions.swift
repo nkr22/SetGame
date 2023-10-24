@@ -21,7 +21,10 @@ public extension AnyTransition {
                height: 2 * size.height)
     }
     static func flyTo(for size:CGSize) -> CGSize {
-        CGSize(width:  CGFloat.random(in: -5*size.width...5*size.width),
-               height: CGFloat.random(in: -3*size.height...(-size.height)))
+        let radius = max(UIScreen.main.bounds.width, UIScreen.main.bounds.height) * 1.5
+        let angle = Double.random(in: 0..<360)
+        let x = radius * cos(angle)
+        let y = radius * sin(angle)
+        return CGSize(width: x, height: y)
     }
 }
