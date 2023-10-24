@@ -21,7 +21,7 @@ struct SymbolView: View {
         }
 
     }
-    var symbol: some Shape { // Change the type to some View
+    var symbol: some Shape { 
         switch card.symbol {
             case .squiggle:
                 return AnyShape(Squiggle())
@@ -44,7 +44,7 @@ struct SymbolView: View {
     }
     
     var body: some View {
-            HStack {
+        HStack(spacing: 0) {
                 ForEach(0..<card.number.rawValue, id: \.self) { _ in
                     ZStack {
                         Group{
@@ -55,6 +55,7 @@ struct SymbolView: View {
                         }
                     }
                     .aspectRatio(1/2, contentMode: .fit)
+                    .frame(width: size.width / 3)
                 }
             
             }

@@ -16,6 +16,7 @@ struct CardView: View {
         
             }
             .padding(geometry.size.width * CardConstants.paddingScaleFactor)
+            .frame(width: geometry.size.width, height: geometry.size.height)
             .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
             
         }

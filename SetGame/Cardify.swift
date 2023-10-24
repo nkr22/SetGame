@@ -41,10 +41,7 @@ struct Cardify: Animatable, ViewModifier {
                         
                 }
             }
-            
             .aspectRatio(CardConstants.aspectRatio, contentMode: .fit)
-            
-            
     }
     
     // MARK: - Drawing Constants
