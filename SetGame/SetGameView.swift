@@ -42,10 +42,6 @@ struct SetGameView: View {
         }
        
     }
-          
-    private struct Game {
-        static let desiredCardWidth = 80.0
-    }
     
     private func columns(for size: CGSize) -> [GridItem] {
         let minColumns = 2

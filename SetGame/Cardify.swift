@@ -18,9 +18,9 @@ struct Cardify: Animatable, ViewModifier {
     
     var backgroundColor: Color {
         if (isMatched == true && isSelected == true) {
-            Color.green.opacity(0.5)
+            Color.green.opacity(CardConstants.shadeOpacity)
         } else if (isMatched == false && isSelected == true) {
-            Color.pink.opacity(0.5)
+            Color.pink.opacity(CardConstants.shadeOpacity)
         } else if (isMatched == nil && isSelected == true) {
             Color.yellow
         } else {
@@ -37,7 +37,7 @@ struct Cardify: Animatable, ViewModifier {
                         }
                     content
                         .scaleEffect(isSelected && isMatched == true ? 1.2 : 1.0)
-                        .animation(Animation.spring(duration: 0.5).repeatForever(), value: isMatched)
+                        .animation(Animation.spring(duration: CardConstants.animationDuration).repeatForever(), value: isMatched)
                         
                 }
             }

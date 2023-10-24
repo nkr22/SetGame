@@ -68,7 +68,7 @@ struct SetGameModel {
         checkToDisableDealing()
         resetUnmatched()
         if let selectedCard = dealtCards.firstIndex(where: {$0.id == card.id}) {
-            if !dealtCards[selectedCard].isSelected && selectedCardsIndices.count <= 3{
+            if !dealtCards[selectedCard].isSelected && selectedCardsIndices.count <= Constants.cardsMatched {
                 switch selectedCardsIndices.count {
                 case 0...1:
                     dealtCards[selectedCard].isSelected = true
@@ -120,7 +120,7 @@ struct SetGameModel {
     }
     
     mutating func checkToDisableDealing() {
-        if deck.count < 3 {
+        if deck.count < Constants.disablingDeckLimit {
             dealingIsDisabled = true
         }
     }
@@ -132,7 +132,7 @@ struct SetGameModel {
     }
     
     private func getScore() -> Int {
-        let score = 3 * (50 / dealtCards.count)
+        let score = Constants.cardsMatched * (Constants.pointValueConstant / dealtCards.count)
         return score
     }
 
@@ -163,7 +163,7 @@ struct SetGameModel {
     }
     
     private mutating func replaceThreeCards () {
-        if dealtCards.count <= 12, !deck.isEmpty {
+        if dealtCards.count <= Constants.defaultNumberOfCards, !deck.isEmpty {
             dealtCards.indices.filter { dealtCards[$0].isMatched == true }.forEach { index in
             dealtCards[index] = deck.remove(at: 0)
         }
@@ -203,6 +203,12 @@ struct SetGameModel {
         
         var isMatched: Bool?
         var isSelected = false
-        var score = 5
     }
+}
+
+private struct Constants {
+    static let defaultNumberOfCards = 12
+    static let pointValueConstant = 50
+    static let cardsMatched = 3
+    static let disablingDeckLimit = 3
 }

@@ -19,14 +19,8 @@ struct CardView: View {
             .cardify(isSelected: card.isSelected, isMatched: card.isMatched)
             
         }
-        .aspectRatio(CardConstants.aspectRatio, contentMode: .fit)
-        
-        
-        
-        
+        .aspectRatio(CardConstants.aspectRatio, contentMode: .fit)     
     }
-
-    
 }
 
 #Preview {

@@ -11,7 +11,16 @@ import SwiftUI
     //MARK: - Properties
     var cardsDealt = 12
     
+    static func createGame() -> SetGameModel {
+        SetGameModel()
+    }
+    
     private var game = createGame()
+    
+    //MARK: - Model Access
+    var deck: Array<SetGameModel.Card> {
+        game.deck
+    }
     
     var dealingIsDisabled: Bool {
         withAnimation{
@@ -19,21 +28,12 @@ import SwiftUI
         }
     }
     
-    var matchedCardIndices: [Int] {
-        dealtCards.indices.filter { dealtCards[$0].isMatched == true }
-    }
-    
-    static func createGame() -> SetGameModel {
-        SetGameModel()
-    }
-    
-    //MARK: - Model Access
-    var deck: Array<SetGameModel.Card> {
-        game.deck
-    }
-    
     var dealtCards: Array<SetGameModel.Card> {
         game.dealtCards
+    }
+    
+    var matchedCardIndices: [Int] {
+        dealtCards.indices.filter { dealtCards[$0].isMatched == true }
     }
     
     var numberOfSets: Int {
@@ -44,7 +44,6 @@ import SwiftUI
         return game.score
     }
     
-
     //MARK: - User Intents
     func dealInitialCards() {
         for index in 0..<cardsDealt {
@@ -88,20 +87,20 @@ import SwiftUI
         }
     }
     
-    func replaceMatch() {
-            if dealtCards.count <= 12 && !dealingIsDisabled {
-                    for (index, matchedIndex) in matchedCardIndices.enumerated() {
-                        withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
-                            game.replaceOneCard(index: matchedIndex)
-                        }
+    private func replaceMatch() {
+        if dealtCards.count <= 12 && !dealingIsDisabled {
+                for (index, matchedIndex) in matchedCardIndices.enumerated() {
+                    withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration).delay(0.1 * Double(index))) {
+                        game.replaceOneCard(index: matchedIndex)
                     }
-            } else {
-                withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
-                    game.dealtCards = game.dealtCards.filter({$0.isMatched != true})
                 }
+        } else {
+            withAnimation(Animation.easeInOut(duration: CardConstants.animationDuration)){
+                game.dealtCards = game.dealtCards.filter({$0.isMatched != true})
             }
-            
-            game.checkToDisableDealing()
+        }
+        
+        game.checkToDisableDealing()
     }
     
     func selectCard(_ card: SetGameModel.Card) {
