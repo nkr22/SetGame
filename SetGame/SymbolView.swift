@@ -50,18 +50,14 @@ struct SymbolView: View {
                         Group{
                             symbol
                                 .foregroundStyle(shading)
-                            symbol.stroke(lineWidth: 3)
+                            symbol.stroke(lineWidth: size.width * CardConstants.strokeScaleFactor)
                                 .foregroundStyle(color)
                         }
                     }
                     .aspectRatio(1/2, contentMode: .fit)
-                    
-                    
-                
                 }
             
             }
-            .frame(height: size.width / 2)
             .rotationEffect(Angle(degrees: 180))
 
     }
@@ -69,5 +65,5 @@ struct SymbolView: View {
 }
 
 #Preview {
-    SymbolView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .one, shading: .shaded), size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
+    SymbolView(card: SetGameModel.Card(id: UUID(), color: .green, symbol: .diamond, number: .three, shading: .shaded), size: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height))
 }

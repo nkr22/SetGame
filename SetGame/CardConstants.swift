@@ -12,4 +12,5 @@ struct CardConstants {
     static let paddingScaleFactor = 0.1
     static let animationDuration = 0.5
     static let shadeOpacity = 0.5
+    static let strokeScaleFactor = 0.02
 }
