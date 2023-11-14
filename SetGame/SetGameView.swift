@@ -16,9 +16,10 @@ struct SetGameView: View {
     
     var body: some View {
         
-        GeometryReader { geometry in
+        
                 VStack {
                     topMenu
+                    GeometryReader { geometry in
                     ScrollView{
                         LazyVGrid(columns: columns(for: geometry.size)) {
                             ForEach(setGame.dealtCards) { card in
@@ -29,6 +30,7 @@ struct SetGameView: View {
                                     .transition(.cardTransition(size: geometry.size))
                             }
                         }
+                        }
                     }
                     Spacer()
                     bottomMenu
@@ -36,7 +38,7 @@ struct SetGameView: View {
                 
                 .padding()
             
-        }
+        
         .onAppear {
             setGame.dealInitialCards()
         }
