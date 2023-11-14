@@ -49,6 +49,8 @@ struct SymbolView: View {
                     ZStack {
                         Group{
                             symbol
+                                .foregroundStyle(.white)
+                            symbol
                                 .foregroundStyle(shading)
                             symbol.stroke(lineWidth: size.width * CardConstants.strokeScaleFactor)
                                 .foregroundStyle(color)
